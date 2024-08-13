@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
+import { loginAction } from "../../redux/slices/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     password: "",
-    username: "",
+    email: "",
   });
 
   //handle form change
@@ -15,12 +18,13 @@ const Login = () => {
 
   //handle form submit
   const handleSubmit = (e) => {
+    dispatch(loginAction(formData));
     e.preventDefault();
 
     // reset form
     setFormData({
       password: "",
-      username: "",
+      email: "",
     });
   };
   //store data
@@ -44,9 +48,9 @@ const Login = () => {
                 className="px-4 py-3.5 w-full text-gray-500 font-medium placeholder-gray-500 bg-white outline-none border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300"
                 id="signUpInput2-1"
                 type="text"
-                placeholder="Enter Username"
-                name="username"
-                value={formData.username}
+                placeholder="Enter email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
               />
             </label>
