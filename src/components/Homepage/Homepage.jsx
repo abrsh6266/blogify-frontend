@@ -1,4 +1,5 @@
 import React from "react";
+import Register from "../Users/Register";
 
 const Homepage = () => {
   return (
@@ -77,6 +78,7 @@ const Homepage = () => {
                 </ul>
               </div>
               {/* Register Form */}
+              <Register />
             </div>
           </div>
         </div>
