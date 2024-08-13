@@ -8,7 +8,7 @@ const Homepage = () => {
         style={{
           backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")',
           backgroundPosition: "center",
-        }}  
+        }}
       >
         <div className="bg-transparent">
           <div className="navbar-menu hidden fixed top-0 left-0 z-50 w-full h-full bg-coolGray-900 bg-opacity-50">
@@ -46,7 +46,7 @@ const Homepage = () => {
                 <ul>
                   <li className="mb-6 flex items-center">
                     <img
-                    alt=" "
+                      alt=" "
                       className="mr-3"
                       src="flex-ui-assets/elements/checkbox-green.svg"
                     />
@@ -56,7 +56,7 @@ const Homepage = () => {
                   </li>
                   <li className="mb-6 flex items-center">
                     <img
-                    alt=" "
+                      alt=" "
                       className="mr-3"
                       src="flex-ui-assets/elements/checkbox-green.svg"
                     />
@@ -66,7 +66,7 @@ const Homepage = () => {
                   </li>
                   <li className="flex items-center">
                     <img
-                    alt=" "
+                      alt=" "
                       className="mr-3"
                       src="flex-ui-assets/elements/checkbox-green.svg"
                     />
