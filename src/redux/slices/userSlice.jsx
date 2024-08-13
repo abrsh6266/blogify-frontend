@@ -14,7 +14,9 @@ const InitialState = {
   profile: {},
   userAuth: {
     error: null,
-    userInfo: {},
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
   },
 };
 
@@ -25,11 +27,13 @@ export const loginAction = createAsyncThunk(
   async (payload, { rejectWithValue, dispatch }) => {
     //making request
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         "https://blogify-api-tawny.vercel.app/api/v1/users/login",
         payload
       );
-      return response;
+      //! save user info into localhost
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);
     }
