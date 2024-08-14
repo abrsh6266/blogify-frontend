@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { loginAction } from "../../redux/slices/userSlice";
+import LoadingComponent from "../alerts/LoadingComponent";
+import ErrorMsg from "../alerts/ErrorMsg";
+import SuccessMsg from "../alerts/SuccessMsg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,7 +31,10 @@ const Login = () => {
     });
   };
   //store data
-
+  const { userAuth, loading, error, success } = useSelector(
+    (state) => state?.users
+  );
+  console.log(userAuth, loading, error);
   return (
     <section className="py-16 xl:pb-56 bg-white overflow-hidden">
       <div className="container px-4 mx-auto">
@@ -66,13 +72,18 @@ const Login = () => {
                 onChange={handleChange}
               />
             </label>
-            <button
-              className="mb-8 py-4 px-9 w-full text-white font-semibold border border-indigo-700 rounded-xl shadow-4xl focus:ring focus:ring-indigo-300 bg-indigo-600 hover:bg-indigo-700 transition ease-in-out duration-200"
-              type="submit"
-            >
-              Login Account
-            </button>
-
+            {loading ? (
+              <LoadingComponent />
+            ) : (
+              <button
+                className="mb-8 py-4 px-9 w-full text-white font-semibold border border-indigo-700 rounded-xl shadow-4xl focus:ring focus:ring-indigo-300 bg-indigo-600 hover:bg-indigo-700 transition ease-in-out duration-200"
+                type="submit"
+              >
+                Login Account
+              </button>
+            )}
+            {error && <ErrorMsg message={error?.message} />}
+            {success && <SuccessMsg message={userAuth?.message} />}
             <p className="font-medium">
               <span className="m-2">Forgot Password?</span>
               <Link

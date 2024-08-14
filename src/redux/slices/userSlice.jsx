@@ -4,6 +4,7 @@ import axios from "axios";
 //initialState
 const InitialState = {
   loading: false,
+  success: false,
   error: null,
   users: [],
   user: null,
@@ -52,6 +53,7 @@ const userSlice = createSlice({
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.userAuth.userInfo = action.payload;
       state.loading = false;
+      state.success = true;
       state.error = null;
     });
     //*failed
