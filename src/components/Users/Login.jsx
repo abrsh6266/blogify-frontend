@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginAction } from "../../redux/slices/userSlice";
 import LoadingComponent from "../alerts/LoadingComponent";
-import ErrorMsg from "../alerts/ErrorMsg";
-import SuccessMsg from "../alerts/SuccessMsg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -82,8 +80,6 @@ const Login = () => {
                 Login Account
               </button>
             )}
-            {error && <ErrorMsg message={error?.message} />}
-            {success && <SuccessMsg message={userAuth?.message} />}
             <p className="font-medium">
               <span className="m-2">Forgot Password?</span>
               <Link

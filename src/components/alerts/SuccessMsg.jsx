@@ -1,7 +1,6 @@
-import React from "react";
 import Swal from "sweetalert2";
 
-const SuccessMsg = ({ message }) => {
+const successMsg = (message) => {
   Swal.fire({
     icon: "success",
     title: "Good job",
@@ -9,4 +8,4 @@ const SuccessMsg = ({ message }) => {
   });
 };
 
-export default SuccessMsg;
+export default successMsg;

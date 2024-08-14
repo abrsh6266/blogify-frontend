@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import errorMsg from "../../components/alerts/ErrorMsg";
+import successMsg from "../../components/alerts/SuccessMsg";
 
 //initialState
 const InitialState = {
@@ -48,6 +50,7 @@ const userSlice = createSlice({
     //Login
     builder.addCase(loginAction.pending, (state, action) => {
       state.loading = true;
+      state.success = false;
     });
     //fulfilled
     builder.addCase(loginAction.fulfilled, (state, action) => {
@@ -55,11 +58,14 @@ const userSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.error = null;
+      successMsg(state.userAuth.userInfo.message);
     });
     //*failed
     builder.addCase(loginAction.rejected, (state, action) => {
       state.loading = false;
+      state.success = false;
       state.error = action.payload;
+      errorMsg(state.error.message);
     });
   },
 });

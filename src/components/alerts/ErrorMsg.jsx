@@ -1,7 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 
-const ErrorMsg = ({ message }) => {
+const errorMsg = (message) => {
   Swal.fire({
     icon: "error",
     title: "Oops",
@@ -9,4 +9,4 @@ const ErrorMsg = ({ message }) => {
   });
 };
 
-export default ErrorMsg;
+export default errorMsg;
