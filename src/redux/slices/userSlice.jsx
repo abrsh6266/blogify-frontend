@@ -42,6 +42,15 @@ export const loginAction = createAsyncThunk(
     }
   }
 );
+//! Logout Action
+
+export const logoutAction = createAsyncThunk("users/logout", async () => {
+  //removing from local storage
+  localStorage.removeItem("userInfo");
+  window.location.reload();
+  return true;
+});
+
 //! UserSlice
 const userSlice = createSlice({
   name: "users",
