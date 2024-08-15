@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { FiUpload } from "react-icons/fi";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const profile = {
   name: "Ricardo Cooper",
@@ -24,6 +26,13 @@ const profile = {
 
 export default function UserProfile() {
   //navigation
+  const navigate = useNavigate();
+  const { userAuth } = useSelector((state) => state?.users);
+  useEffect(() => {
+    if (!userAuth?.userInfo?.token) {
+      navigate("/login");
+    }
+  });
   return (
     <>
       <div className="flex h-full">
