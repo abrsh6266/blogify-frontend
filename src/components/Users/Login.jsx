@@ -31,9 +31,7 @@ const Login = () => {
     });
   };
   //store data
-  const { userAuth, loading, error, success } = useSelector(
-    (state) => state?.users
-  );
+  const { userAuth, loading, error } = useSelector((state) => state?.users);
   console.log(userAuth, loading, error);
   useEffect(() => {
     if (userAuth?.userInfo?.token) {
