@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginAction } from "../../redux/slices/userSlice";
 import LoadingComponent from "../alerts/LoadingComponent";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     password: "1234",
@@ -33,6 +35,11 @@ const Login = () => {
     (state) => state?.users
   );
   console.log(userAuth, loading, error);
+  useEffect(() => {
+    if (userAuth?.userInfo?.token) {
+      navigate("/profile");
+    }
+  });
   return (
     <section className="py-16 xl:pb-56 bg-white overflow-hidden">
       <div className="container px-4 mx-auto">
