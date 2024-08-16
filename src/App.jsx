@@ -6,6 +6,7 @@ import PublicNavbar from "./components/Navbar/PublicNavbar";
 import { useSelector } from "react-redux";
 import PrivateNavbar from "./components/Navbar/PrivateNavbar copy";
 import ProtectedRoute from "./components/AuthRoute/ProtectedRoute";
+import PublicPosts from "./components/Posts/PublicPosts";
 
 export default function App() {
   const { userAuth } = useSelector((state) => state?.users);
