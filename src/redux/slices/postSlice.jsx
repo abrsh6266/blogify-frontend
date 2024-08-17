@@ -8,7 +8,12 @@ const InitialState = {
   loading: false,
   success: false,
   error: null,
-  posts: [],
+  posts: {
+    posts:[],
+    message:null,
+    status:null,
+    pagination:{}
+  },
   post: null,
 };
 
@@ -20,7 +25,7 @@ export const fetchPublicPostsAction = createAsyncThunk(
     // Making request
     try {
       const { data } = await axios.get(
-        "https://blogify-api-tawny.vercel.app/api/v1/posts/public"
+        "https://blogify-api-tawny.vercel.app/api/v1/posts"
       );
       return data;
     } catch (error) {
@@ -44,14 +49,12 @@ const publicPostSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.error = null;
-      successMsg(state.message);
     });
     // Rejected
     builder.addCase(fetchPublicPostsAction.rejected, (state, action) => {
       state.loading = false;
       state.success = false;
       state.error = action.payload;
-      errorMsg(state.error.message);
     });
   },
 });
