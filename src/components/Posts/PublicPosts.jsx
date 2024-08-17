@@ -12,6 +12,12 @@ const PublicPosts = () => {
   useEffect(() => {
     dispatch(fetchPublicPostsAction());
   }, [dispatch]);
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <>
       <div>
@@ -46,7 +52,7 @@ const PublicPosts = () => {
               ) : (
                 posts.posts.map((post) => {
                   return (
-                    <div className="w-full md:w-1/2 px-4 mb-8">
+                    <div key={post?.id} className="w-full md:w-1/2 px-4 mb-8">
                       <a
                         className="block mb-6 overflow-hidden rounded-md"
                         href="#"
@@ -65,7 +71,7 @@ const PublicPosts = () => {
                         </a>
                       </div>
                       <p className="mb-2 text-coolGray-500 font-medium">
-                        {post?.createdAt}
+                        {formatDate(post?.createdAt)}
                       </p>
                       <a
                         className="inline-block mb-4 text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline"
