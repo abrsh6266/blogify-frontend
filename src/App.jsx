@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import PrivateNavbar from "./components/Navbar/PrivateNavbar copy";
 import ProtectedRoute from "./components/AuthRoute/ProtectedRoute";
 import PublicPosts from "./components/Posts/PublicPosts";
+import AddPost from "./components/Posts/AddPosts";
 
 export default function App() {
   const { userAuth } = useSelector((state) => state?.users);
@@ -22,6 +23,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <UserProfile />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/add-post"
+          element={
+            <ProtectedRoute>
+              <AddPost />
             </ProtectedRoute>
           }
         ></Route>
