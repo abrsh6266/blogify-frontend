@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { fetchCategoriesAction } from "../../redux/slices/categorySlice";
 
 const AddPost = () => {
+  //fetching categories
+  const { categories } = useSelector((state) => state.categories);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCategoriesAction());
+  }, [dispatch]);
   const [formData, setFormData] = useState({
     title: "",
     image: null,
@@ -9,17 +17,15 @@ const AddPost = () => {
     content: "",
   });
   //Dummy Category
-  const options = [
-    { value: "technology", label: "Technology" },
-    { value: "business", label: "Business" },
-    { value: "lifestyle", label: "Lifestyle" },
-  ];
+  const options = categories.categories.map((category) => {
+    return { label: category.name, value: category._id };
+  });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSelectChange = (selected) => {
-    setformData({ ...formData, category: selected.value });
+    setFormData({ ...formData, category: selected.value });
   };
   const handleSubmit = (e) => {
     console.log(formData);
