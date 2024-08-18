@@ -33,6 +33,22 @@ export const fetchPublicPostsAction = createAsyncThunk(
     }
   }
 );
+//! single post Action
+
+export const fetchSinglePostAction = createAsyncThunk(
+  "posts/fetch-single-posts",
+  async (postId, { rejectWithValue }) => {
+    // Making request
+    try {
+      const { data } = await axios.get(
+        `https://blogify-api-tawny.vercel.app/api/v1/posts/${postId}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
 //! Add Post Action
 
 export const addPostAction = createAsyncThunk(
@@ -82,6 +98,24 @@ const publicPostSlice = createSlice({
     });
     // Rejected
     builder.addCase(fetchPublicPostsAction.rejected, (state, action) => {
+      state.loading = false;
+      state.success = false;
+      state.error = action.payload;
+    });
+    // fetch single post
+    builder.addCase(fetchSinglePostAction.pending, (state) => {
+      state.loading = true;
+      state.success = false;
+    });
+    // Fulfilled
+    builder.addCase(fetchSinglePostAction.fulfilled, (state, action) => {
+      state.post = action.payload;
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+    });
+    // Rejected
+    builder.addCase(fetchSinglePostAction.rejected, (state, action) => {
       state.loading = false;
       state.success = false;
       state.error = action.payload;

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPublicPostsAction } from "../../redux/slices/postSlice";
 import LoadingComponent from "../alerts/LoadingComponent";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils";
 
 const PublicPosts = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,6 @@ const PublicPosts = () => {
   useEffect(() => {
     dispatch(fetchPublicPostsAction());
   }, [dispatch]);
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
 
   return (
     <>
