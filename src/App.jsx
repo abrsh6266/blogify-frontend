@@ -8,6 +8,7 @@ import PrivateNavbar from "./components/Navbar/PrivateNavbar copy";
 import ProtectedRoute from "./components/AuthRoute/ProtectedRoute";
 import PublicPosts from "./components/Posts/PublicPosts";
 import AddPost from "./components/Posts/AddPosts";
+import PostDetails from "./components/Posts/PostDetails";
 
 export default function App() {
   const { userAuth } = useSelector((state) => state?.users);
@@ -31,6 +32,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <AddPost />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/posts/:postId"
+          element={
+            <ProtectedRoute>
+              <PostDetails />
             </ProtectedRoute>
           }
         ></Route>

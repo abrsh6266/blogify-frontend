@@ -9,10 +9,10 @@ const InitialState = {
   success: false,
   error: null,
   posts: {
-    posts:[],
-    message:null,
-    status:null,
-    pagination:{}
+    posts: [],
+    message: null,
+    status: null,
+    pagination: {},
   },
   post: null,
 };
@@ -26,6 +26,36 @@ export const fetchPublicPostsAction = createAsyncThunk(
     try {
       const { data } = await axios.get(
         "https://blogify-api-tawny.vercel.app/api/v1/posts"
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+//! Add Post Action
+
+export const addPostAction = createAsyncThunk(
+  "posts/create",
+  async (payload, { rejectWithValue, getState }) => {
+    // Making request
+    try {
+      console.log(payload);
+      const formData = new FormData();
+      formData.append("title", payload?.title);
+      formData.append("categoryId", payload?.category);
+      formData.append("content", payload?.content);
+      formData.append("file", payload?.image);
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.post(
+        "https://blogify-api-tawny.vercel.app/api/v1/posts",
+        formData,
+        config
       );
       return data;
     } catch (error) {
@@ -55,6 +85,26 @@ const publicPostSlice = createSlice({
       state.loading = false;
       state.success = false;
       state.error = action.payload;
+    });
+    // create Post
+    builder.addCase(addPostAction.pending, (state) => {
+      state.loading = true;
+      state.success = false;
+    });
+    // Fulfilled
+    builder.addCase(addPostAction.fulfilled, (state, action) => {
+      state.post = action.payload;
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+      successMsg(state.post.message);
+    });
+    // Rejected
+    builder.addCase(addPostAction.rejected, (state, action) => {
+      state.loading = false;
+      state.success = false;
+      state.error = action.payload;
+      errorMsg(state.error.message);
     });
   },
 });
