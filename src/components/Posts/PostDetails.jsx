@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import LoadingComponent from "../alerts/LoadingComponent";
 import errorMsg from "../alerts/ErrorMsg";
 import { formatDate } from "../../utils";
+import PostStats from "./PostStats";
 
 const PostDetails = () => {
   const dispatch = useDispatch();
@@ -85,6 +86,13 @@ const PostDetails = () => {
             }}
           >
             {/* Posts stats */}
+            <PostStats
+              likes={post?.post?.likes?.length}
+              dislikes={post?.post?.dislikes?.length}
+              postViews={post?.post?.postViews}
+              totalComments={post?.post?.comments?.length}
+              createdAt={post?.post?.createdAt}
+            />
           </div>
           <div className="container px-4 mx-auto">
             <div className="mx-auto md:max-w-3xl">
