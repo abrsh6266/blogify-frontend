@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingComponent from "../alerts/LoadingComponent";
 import errorMsg from "../alerts/ErrorMsg";
-import { formatDate } from "../../utils";
+import { calculateReadTime, formatDate } from "../../utils";
 import PostStats from "./PostStats";
 
 const PostDetails = () => {
@@ -92,6 +92,7 @@ const PostDetails = () => {
               postViews={post?.post?.postViews}
               totalComments={post?.post?.comments?.length}
               createdAt={post?.post?.createdAt}
+              readingTime={calculateReadTime(post?.post?.content)}
             />
           </div>
           <div className="container px-4 mx-auto">

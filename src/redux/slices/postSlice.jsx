@@ -25,6 +25,23 @@ export const fetchPublicPostsAction = createAsyncThunk(
     // Making request
     try {
       const { data } = await axios.get(
+        "https://blogify-api-tawny.vercel.app/api/v1/posts/public"
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+//! private posts Action
+
+export const fetchPrivatePostsAction = createAsyncThunk(
+  "posts/fetch-public-posts",
+  async (payload, { rejectWithValue }) => {
+    // Making request
+    try {
+      const { data } = await axios.get(
         "https://blogify-api-tawny.vercel.app/api/v1/posts"
       );
       return data;
