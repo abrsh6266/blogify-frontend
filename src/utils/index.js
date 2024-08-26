@@ -5,7 +5,7 @@ export const formatDate = (dateString) => {
 
 export const calculateReadTime = (text) => {
   const wordsPerMinutes = 200;
-  const words = text.slice(/\s/g).length;
+  const words = text?.slice(/\s/g)?.length;
   const minutes = words / wordsPerMinutes;
   const readTime = Math.ceil(minutes);
   return readTime;

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPublicPostsAction } from "../../redux/slices/postSlice";
 import LoadingComponent from "../alerts/LoadingComponent";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils";
+import { fetchPrivatePostsAction } from "../../redux/slices/postSlice";
 
 const PostLists = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const PostLists = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchPublicPostsAction());
+    dispatch(fetchPrivatePostsAction());
   }, [dispatch]);
 
   return (

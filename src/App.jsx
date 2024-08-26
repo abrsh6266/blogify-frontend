@@ -9,7 +9,7 @@ import ProtectedRoute from "./components/AuthRoute/ProtectedRoute";
 import PublicPosts from "./components/Posts/PublicPosts";
 import AddPost from "./components/Posts/AddPosts";
 import PostDetails from "./components/Posts/PostDetails";
-import PostLists from "./components/Posts/PublicPosts copy";
+import PostLists from "./components/Posts/PostLists";
 
 export default function App() {
   const { userAuth } = useSelector((state) => state?.users);

@@ -37,12 +37,19 @@ export const fetchPublicPostsAction = createAsyncThunk(
 //! private posts Action
 
 export const fetchPrivatePostsAction = createAsyncThunk(
-  "posts/fetch-public-posts",
+  "posts/fetch-private-posts",
   async (payload, { rejectWithValue }) => {
     // Making request
     try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
       const { data } = await axios.get(
-        "https://blogify-api-tawny.vercel.app/api/v1/posts"
+        "https://blogify-api-tawny.vercel.app/api/v1/posts",
+        config
       );
       return data;
     } catch (error) {
@@ -156,6 +163,26 @@ const publicPostSlice = createSlice({
       state.success = false;
       state.error = action.payload;
       errorMsg(state.error.message);
+    });
+
+    // fetch private post
+    builder.addCase(fetchPrivatePostsAction.pending, (state) => {
+      state.loading = true;
+      state.success = false;
+    });
+    // Fulfilled
+    builder.addCase(fetchPrivatePostsAction.fulfilled, (state, action) => {
+      state.posts = action.payload;
+      state.loading = false;
+      state.success = true;
+      state.error = null;
+    });
+    // Rejected
+    builder.addCase(fetchPrivatePostsAction.rejected, (state, action) => {
+      state.loading = false;
+      state.posts.posts = [];
+      state.success = false;
+      state.error = action.payload;
     });
   },
 });
